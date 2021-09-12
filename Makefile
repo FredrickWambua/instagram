@@ -5,4 +5,4 @@ makemigrations:
 	python3 manage.py makemigrations
 
 migrate:
-	python3 manage.python3 migrate
+	python3 manage.py migrate

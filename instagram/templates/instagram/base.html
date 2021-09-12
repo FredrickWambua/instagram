@@ -1,0 +1,25 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% if title %}
+    <title>Instagram Clone -{{title}} </title>
+    {% else %}
+    <title>Instagram Clone</title>
+    {% endif %}
+    {% block styles %}
+    {% bootstrap_css %}
+   
+    {% endblock %}
+</head>
+<body>
+    
+    {% block content %}
+    
+    {% endblock %}
+
+</body>
+</html>
