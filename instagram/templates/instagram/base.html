@@ -11,15 +11,24 @@
     <title>Instagram Clone</title>
     {% endif %}
     {% block styles %}
-    {% bootstrap_css %}
-   
-    {% endblock %}
+        {% bootstrap_css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %} ">
+        {% endblock %}
 </head>
 <body>
-    
+    {% include 'instagram/navbar.html' %}
     {% block content %}
-    
+
     {% endblock %}
 
+    
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    {% bootstrap_javascript %}
+    {% endblock %}
 </body>
 </html>
