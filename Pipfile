@@ -9,6 +9,7 @@ django-bootstrap = "*"
 django-bootstrap4 = "*"
 django-registration = "*"
 psycopg2 = "*"
+cloudinary = "*"
 
 [dev-packages]
 
