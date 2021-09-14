@@ -12,7 +12,7 @@ import datetime
 # Create your models here.
 # class UserManager(AbstractUser):
 
-class CustomUserManager(BaseUserManager):
+class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
         '''
         Creates and saves a User with the given email and password.
@@ -40,19 +40,23 @@ class CustomUserManager(BaseUserManager):
         user = self.create_user(email, password=password,)
         user.staff(using=self._db)
         return user
-        
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(('email address'), unique=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    def __str__(self):
+        return self.email
+
+    objects =UserManager()
 
 class Profile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=80, null=True)
     email= models.EmailField(default=False)
     profile_photo = CloudinaryField('image')
@@ -69,7 +73,7 @@ class Post(models.Model):
     image = CloudinaryField('image')
     name = models.CharField(max_length=80, blank=True)
     caption = models.CharField(max_length=255, blank=True)
-    likes = models.ManyToManyField(CustomUser, related_name='likes', blank=True)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
     posted_on = models.DateTimeField(auto_now_add=True, null=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
