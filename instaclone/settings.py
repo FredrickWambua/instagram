@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
+ALLOWED_HOSTS =['*']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'instagram.apps.InstagramConfig',
     'bootstrap4',
     'cloudinary',
+    'registration',
 
 ]
 
@@ -62,7 +63,8 @@ ROOT_URLCONF = 'instaclone.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['./templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +86,7 @@ WSGI_APPLICATION = 'instaclone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram',
+        'NAME': 'instaclone',
         'USER': 'moringa',
         'PASSWORD': '12345',
     }
@@ -144,3 +146,7 @@ cloudinary.config(
     api_secret = os.environ.get('API_SECRET'),
     cloudinary_url = os.environ.get('CLOUDINARY_URL'),
 )
+
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
+AUTH_USER_MODEL='instagram.User'

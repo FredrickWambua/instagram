@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):
         '''
         if not email:
             raise ValueError('Users must have an email address')
-        user = self.model(email=self.normalize_email(email)),
+        user = self.model(email=self.normalize_email(email),)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -29,7 +29,7 @@ class UserManager(BaseUserManager):
         Creates and saves a staff user with a given email and password.
         '''
         user = self.create_user(email, password=password,)
-        user.staff = False
+        user.staff = True
         user.save(using=self._db)
         return user
 
@@ -38,13 +38,15 @@ class UserManager(BaseUserManager):
         Creates and saves a superuser with the given email and password.
         '''
         user = self.create_user(email, password=password,)
-        user.staff(using=self._db)
+        user.staff = True
+        user.admin = True
+        user.save(using=self._db)
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
-    staff = models.BooleanField(default=False)
-    admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
