@@ -28,3 +28,13 @@ def signup(request):
     else:
         form = signUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+@login_required
+def profile_info(request):
+    profiles = Profile.objects.filter(user=request.user)
+    if not profiles.first():
+        profile = Profile.objects.create(user=request.user)
+        profile.save()
+    profile = Profile.objects.get(user=request.user)
+    posts = Post.objects.filter(editor=request.user)
+    return render(request, 'insta/profile.html',{'profile': profile, 'posts': posts})
