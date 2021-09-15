@@ -11,6 +11,7 @@ django-registration = "*"
 psycopg2 = "*"
 cloudinary = "*"
 django-registration-redux = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

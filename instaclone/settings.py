@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url as db_url
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -84,7 +85,10 @@ WSGI_APPLICATION = 'instaclone.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+DATABASES={}
+PRODUCTION = os.environ.get('PRODUCTION')
+if PRODUCTION == 'True':
+    DATABASES['default']=db_url.config()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
