@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'registration',
 
 ]
+AUTH_USER_MODEL='instagram.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +65,7 @@ ROOT_URLCONF = 'instaclone.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'DIRS': ['./templates'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -149,4 +151,3 @@ cloudinary.config(
 
 # LOGIN_REDIRECT_URL = '/'
 # LOGOUT_REDIRECT_URL = '/'
-AUTH_USER_MODEL='instagram.User'
