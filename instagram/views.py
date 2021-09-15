@@ -12,10 +12,20 @@ from django.conf import settings
 # Create your views here.
 @login_required
 def home(request):
-    return render(request, 'insta/index.html')
+    user = request.user
+    user_profile = Profile.objects.get(user=user)
+    all_profiles = Profile.objects.all()
+    posts = Post.objects.all()
+    comments = Comment.objects.all()
+    context = {
+        'user_profile': user_profile,
+        'all_profiles': all_profiles,
+        'posts': posts,
+        'comments': comments,
+    }
+    return render(request, 'insta/index.html', context)
 
 def signup(request):
-    if request.method == 'POST':
         form = signUpForm(request.POST)
         if form.is_valid():
             user = form.save()
