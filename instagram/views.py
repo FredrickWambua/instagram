@@ -30,7 +30,7 @@ def home(request):
     posts = Post.objects.all()
     comments = Comment.objects.all()
     context = {
-        'user_profile': user_profile,
+        # 'user_profile': user_profile,
         'all_profiles': all_profiles,
         'posts': posts,
         'comments': comments,
