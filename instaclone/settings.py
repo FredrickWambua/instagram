@@ -161,4 +161,4 @@ cloudinary.config(
 
 )
 
-LOGOUT_URL='login'
+LOGOUT_REDIRECT_URL='login'
