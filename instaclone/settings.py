@@ -155,11 +155,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #adding config
 cloudinary.config(
-    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    api_key = os.environ.get('API_KEY'),
-    api_secret = os.environ.get('API_SECRET'),
-    cloudinary_url = os.environ.get('CLOUDINARY_URL'),
+    cloud_name='daxszmc6m',
+    api_key=942116385871621,
+    api_secret='LHGUXdAap0H5Oj1NL5k_kU12GD8',
+
 )
 
-# LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = '/'
+
