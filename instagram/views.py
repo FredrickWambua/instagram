@@ -1,5 +1,5 @@
 from instagram.forms import signUpForm
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect, resolve_url
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -10,6 +10,18 @@ from django.conf import settings
 
 
 # Create your views here.
+
+@login_required
+def profile_info(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = Profile.objects.get(user=user)
+    url_name = resolve_url(request.path).url_name
+    if url_name == 'profile':
+        posts = Post.objects.filter(user=user).order_by('-posted_on')
+    else:
+        posts = Profile.objects.all()
+    return render(request, 'insta/index.html',{'profile': profile, 'posts': posts})
+
 @login_required
 def home(request):
     user = request.user
@@ -35,16 +47,8 @@ def signup(request):
             user = authenticate(username=user.name, password=raw_password)
             login(request, user)
             return redirect('home')
-    else:
-        form = signUpForm()
-    return render(request, 'registration/signup.html', {'form': form})
+        else:
+            form = signUpForm()
+        return render(request, 'registration/signup.html', {'form': form})
 
-@login_required
-def profile_info(request):
-    profiles = Profile.objects.filter(user=request.user)
-    if not profiles.first():
-        profile = Profile.objects.create(user=request.user)
-        profile.save()
-    profile = Profile.objects.get(user=request.user)
-    posts = Post.objects.filter(editor=request.user)
-    return render(request, 'insta/profile.html',{'profile': profile, 'posts': posts})
+

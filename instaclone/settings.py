@@ -32,6 +32,9 @@ DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS =['*']
 
+API_KEY = os.environ.get('API_KEY')
+API_SECRET = os.environ.get('API_SECRET')
+
 
 # Application definition
 
@@ -92,7 +95,7 @@ if PRODUCTION == 'True':
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instaclone',
+        'NAME': 'insta_db',
         'USER': 'moringa',
         'PASSWORD': '12345',
     }

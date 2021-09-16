@@ -7,4 +7,5 @@ urlpatterns=[
     url('^login/$', LoginView.as_view(), name='login'),
     url('^logout/$', LogoutView.as_view(), name='logout'),
     url('^signup/$', views.signup, name='signup'),
+    url('^insta/index/$', views.profile_info, name='profile')
 ]

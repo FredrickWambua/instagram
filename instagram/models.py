@@ -6,7 +6,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from cloudinary.models import CloudinaryField
-import datetime
 
 
 # Create your models here.
@@ -45,6 +44,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
+    username = models.CharField(max_length=255)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
@@ -52,6 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
 
     def __str__(self):
         return self.email
@@ -91,8 +92,12 @@ class Profile(models.Model):
     bio = models.TextField(max_length=255)
     joined_at = models.DateTimeField(auto_now_add=True, null=True)
 
+
     def __str__(self):
         return f'{self.user.username} Profile'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     
 
@@ -103,18 +108,21 @@ class Post(models.Model):
     caption = models.CharField(max_length=255, blank=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     posted_on = models.DateTimeField(auto_now_add=True, null=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f' {self.user.name} Post '
+        return f' {self.author.username} Post '
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 
 class Comment(models.Model):
-    comment = models.TextField(max_length=255)
+    body = models.TextField(max_length=255)
     post = models.ForeignKey(Post, on_delete=CASCADE, related_name='comments')
     user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='comments')
     commented_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user.name} Comment '
+        return self.body
 
