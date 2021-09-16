@@ -93,14 +93,15 @@ DATABASES={}
 PRODUCTION = os.environ.get('PRODUCTION')
 if PRODUCTION == 'True':
     DATABASES['default']=db_url.config()
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'insta_db',
-        'USER': 'moringa',
-        'PASSWORD': '12345',
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'insta_db',
+            'USER': 'moringa',
+            'PASSWORD': '12345',
+        }
     }
-}
 
 
 # Password validation
@@ -140,9 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+
 
 STATIC_ROOT=BASE_DIR/'static'
 
