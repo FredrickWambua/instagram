@@ -25,7 +25,7 @@ def profile_info(request, username):
 @login_required
 def home(request):
     user = request.user
-    user_profile = Profile.objects.get(user=user)
+    # user_profile = Profile.objects.get(user=user)
     all_profiles = Profile.objects.all()
     posts = Post.objects.all()
     comments = Comment.objects.all()
