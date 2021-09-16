@@ -1,29 +1,35 @@
 {% extends 'insta/base.html' %}
 {% load static %}
 {% block content %}
-<div class="container">
+<br>
+<br>
+<div class="container" style="width: 50%; margin-left: auto; margin-left: auto;">
     <div class="card">
-        <div class="row">
-            <div class="col-md-8">
-                
-                {% for post in posts %}
-                    {% if post %}
-
-                    <p> {{post.name}} </p>
-                    <div class="user-profile">
-                        <img src="{{user.profile.profile_photo.url}}" alt="">
+        {% for post in posts %}
+        {% if post %}
+        <div class="user-profile">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <img style="border-radius: 50%; width: 10%;" src="{{user.profile.profile_photo.url}}" alt="">
                     </div>
-                    <a href="{% url 'home' %}"><img src="{{post.image.url}}" alt=""></a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div class="id">
-                <a href=""> {{post.author}} </a>
-            </div>
-            <div class="post">
-                <img src="{{post.image.url}}">
+                    <div class="col">
+                        <p> {{user.profile.name}} </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="image">
+            <a href="{% url 'home' %}"><img src="{{post.image.url}}" alt=""></a>
+        </div>
+        <div class="comment">
+            <p>{{post.comment.body}}</p>
+        </div>
+
+    {% endif %}
+    
+    {% endfor %}
 </div>
+
+
 {% endblock %}

@@ -12,6 +12,8 @@ psycopg2 = "*"
 cloudinary = "*"
 django-registration-redux = "*"
 dj-database-url = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 

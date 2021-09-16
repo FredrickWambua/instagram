@@ -21,13 +21,16 @@
                   <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
               </div>
-              <div class="col-sm-6 col-md-6">
-                {% if user.is_authenticated %}
-                  <a href="{% url 'logout' %}">logout</a>
-                {% else %}
-                  <a href="{% url 'login' %}">login</a> / <a href="{% url 'signup' %}">signup</a>
-                {% endif %}
-              </div>
+              <a href=""><i style="margin-right: 20px;font-size: 20px;" class="fas fa-compass"></i></a>
+              <a href=""><i style="margin-right: 20px;font-size: 20px;" class="far fa-heart"></i></a>
+                <div class="col-sm-6 col-md-6">
+                  {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">logout</a>
+                  {% else %}
+                    <a href="{% url 'login' %}">login</a> / <a href="{% url 'signup' %}">signup</a>
+                  {% endif %}
+                </div>
+              </a>
             </div>
         </div>
     </nav>
