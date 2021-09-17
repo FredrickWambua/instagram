@@ -96,13 +96,9 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        super().delete(*args, **kwargs)
-
-    
 
 
 class Post(models.Model):
@@ -113,15 +109,16 @@ class Post(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
     def __str__(self):
         return f' {self.author.username} Post '
     
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
 
-
-    def delete(self, *args, **kwargs):
-        super().delete(*args, **kwargs)
 
 
 class Comment(models.Model):
@@ -133,9 +130,8 @@ class Comment(models.Model):
     def __str__(self):
         return self.body
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    def save_comment(self):
+        self.save()
 
-
-    def delete(self, *args, **kwargs):
-        super().delete(*args, **kwargs)
+    def delete_comment(self):
+        self.delete()
