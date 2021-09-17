@@ -3,33 +3,31 @@
 {% block content %}
 <br>
 <br>
-<div class="container" style="width: 50%; margin-left: auto; margin-left: auto;">
+{% for post in posts %}
+{% if post %}
+<br>
+<div class="container feed" style="width: 50%; margin-left: auto; margin-left: auto; box-shadow: 1px solid #777;">
     <div class="card">
-        {% for post in posts %}
-        {% if post %}
-        <div class="user-profile">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <img style="border-radius: 50%; width: 10%;" src="{{user.profile.profile_photo.url}}" alt="">
-                    </div>
-                    <div class="col">
-                        <p> {{user.profile.name}} </p>
-                    </div>
-                </div>
-            </div>
+        <div class="image" style="display: flex; padding: 5px;">
+            <img style="border-radius: 50%; width: 10%;" src="{{user.profile.profile_photo.url}}" alt="">
+            <p style="font-weight: bold; padding-top: 20px; margin-left: 20px;"> {{user.profile.name}} </p>
         </div>
-        <div class="image">
+    </div>    
+    <div class="card">
+        <div class="image"  style="object-fit: cover;">
             <a href="{% url 'home' %}"><img src="{{post.image.url}}" alt=""></a>
         </div>
-        <div class="comment">
-            <p>{{post.comment.body}}</p>
+        <div class="post-caption" style="margin: 20px;">
+            <p> <span style="font-weight: bold; "> {{user.profile.name}} </span> {{post.caption}}</p>
         </div>
+        <div class="comment">
+            <p>{{user.comment.body}}</p>
+        </div>
+    </div>
 
-    {% endif %}
-    
-    {% endfor %}
 </div>
+{% endif %}
+{% endfor %}
 
 
 {% endblock %}
