@@ -7,9 +7,6 @@
 {% if post %}
 <br>
 <div class="container feed" style="width: 50%; margin-left: auto; margin-left: auto; box-shadow: 1px solid #777;">
-    <div class="posting">
-        <a href="{% url 'post_add' %}">Upload Post</a>
-    </div>
     <div class="card">
         <div class="image" style="display: flex; padding: 5px;">
             <img style="border-radius: 50%; width: 10%;" src="{{user.profile.profile_photo.url}}" alt="">

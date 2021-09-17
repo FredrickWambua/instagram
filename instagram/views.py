@@ -55,7 +55,7 @@ def signup(request):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     form_class= UploadPostForm
-    template_name = 'post.html'
+    template_name = 'insta/post.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

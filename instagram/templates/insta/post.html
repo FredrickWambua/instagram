@@ -3,15 +3,15 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <form method="POST" enctype="multipart/form-data">
-                {% crsf_token %}
+                {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="'border-bottom mb-4">Post Your Post</legend>
                     {{ form | crispy }}
                 </fieldset>
                 <div class="form-group">
-                    <input type="text" class="btn btn-success btn-lg" value="Post">
+                    <input type="submit" class="btn btn-success btn-sm" value="Post">
                 </div>
             </form>
         </div>
