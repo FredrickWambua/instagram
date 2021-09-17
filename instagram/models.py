@@ -129,6 +129,11 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=CASCADE, related_name='comments')
     author = models.ForeignKey(User, on_delete=CASCADE, related_name='comments', null=True)
     commented_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+
+    class Meta:
+        ordering = ['commented_on']
 
     def __str__(self):
         return self.body
