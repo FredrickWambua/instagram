@@ -1,4 +1,4 @@
-from instagram.forms import signUpForm
+from instagram.forms import signUpForm, UploadPostForm
 from django.shortcuts import get_object_or_404, render,redirect, resolve_url
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.conf import settings
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -51,4 +53,11 @@ def signup(request):
             form = signUpForm()
         return render(request, 'registration/signup.html', {'form': form})
 
+class PostCreateView(LoginRequiredMixin, CreateView):
+    form_class= UploadPostForm
+    template_name = 'post.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 

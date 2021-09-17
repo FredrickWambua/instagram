@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from cloudinary.models import CloudinaryField
+from django.urls import reverse
 
 
 # Create your models here.
@@ -117,14 +118,16 @@ class Post(models.Model):
 
     def __str__(self):
         return f' {self.author.username} Post '
-    
+
+    def get_absolute_url(self):
+        return reverse('home')
 
 
 
 class Comment(models.Model):
     body = models.TextField(max_length=255)
     post = models.ForeignKey(Post, on_delete=CASCADE, related_name='comments')
-    author = models.ForeignKey(User, on_delete=CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=CASCADE, related_name='comments', null=True)
     commented_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

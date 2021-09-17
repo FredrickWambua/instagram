@@ -1,24 +1,21 @@
-<!-- {% extends 'insta/base.html' %}
-{% load static %}
+{% extends 'insta/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-8">
-                <h6>profile here</h6>
-                {% for profile in all_profiles %}
-                    {% if profile.user == post.author %}
-                    <a href="{% url 'index' %}"><img src="{{profile.image.url}}" alt=""> </a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div class="id">
-                <a href=""> {{post.author.username}} </a>
-            </div>
-            <div class="post">
-                <img src="{{post.image.url}}">
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST" enctype="multipart/form-data">
+                {% crsf_token %}
+                <fieldset class="form-group">
+                    <legend class="'border-bottom mb-4">Post Your Post</legend>
+                    {{ form | crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <input type="text" class="btn btn-success btn-lg" value="Post">
+                </div>
+            </form>
         </div>
     </div>
 </div>
-{% endblock %} -->
+
+{% endblock %}

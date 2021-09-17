@@ -7,6 +7,9 @@
 {% if post %}
 <br>
 <div class="container feed" style="width: 50%; margin-left: auto; margin-left: auto; box-shadow: 1px solid #777;">
+    <div class="posting">
+        <a href="{% url 'post_add' %}">Upload Post</a>
+    </div>
     <div class="card">
         <div class="image" style="display: flex; padding: 5px;">
             <img style="border-radius: 50%; width: 10%;" src="{{user.profile.profile_photo.url}}" alt="">
@@ -15,7 +18,7 @@
     </div>    
     <div class="card">
         <div class="image"  style="display: flex; justify-content: center; align-content: center;">
-            <a href="{% url 'home' %}"><img src="{{post.image.url}}" alt=""></a>
+            <a href="{% url 'home' %}"><img class="img-thumbnail" src="{{post.image.url}}" alt=""></a>
         </div>
         <section class="btn-group mt-3 ml-3">
             <a href="#" type="button" class="btn-love" style="font-size: larger;"><i  class="far fa-heart fa-lg"></i></a>
@@ -30,7 +33,7 @@
             <p>{{user.comment.body}}</p>
         </div>
     </div>
-
+   
 </div>
 {% endif %}
 {% endfor %}
