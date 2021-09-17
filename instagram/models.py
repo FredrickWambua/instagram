@@ -99,6 +99,9 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+
     
 
 
@@ -117,6 +120,10 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
 
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+
+
 class Comment(models.Model):
     body = models.TextField(max_length=255)
     post = models.ForeignKey(Post, on_delete=CASCADE, related_name='comments')
@@ -126,3 +133,9 @@ class Comment(models.Model):
     def __str__(self):
         return self.body
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
