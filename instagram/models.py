@@ -124,7 +124,7 @@ class Post(models.Model):
 class Comment(models.Model):
     body = models.TextField(max_length=255)
     post = models.ForeignKey(Post, on_delete=CASCADE, related_name='comments')
-    user = models.ForeignKey(Profile, on_delete=CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=CASCADE, related_name='comments')
     commented_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

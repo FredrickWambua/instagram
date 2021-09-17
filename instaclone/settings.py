@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'cloudinary',
     'registration',
+    'crispy_forms',
 
 ]
 AUTH_USER_MODEL='instagram.User'

@@ -1,27 +1,31 @@
 {% extends 'insta/base.html' %}
-
+{% load static %}
 {% block content %}
-<div class="container">
+<div class="container mt-4" style="width: 50%; margin-left: auto; margin-right: auto;">
   <div class="row">
-    <div class="card">
-      <div class="card-content">
-        <h2>Sign up</h2>
-      <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-          <p>
-            {{ field.label_tag }}<br>
-            {{ field }}
-            {% if field.help_text %}
-              <small style="color: grey">{{ field.help_text }}</small>
-            {% endif %}
-            {% for error in field.errors %}
-              <p style="color: red">{{ error }}</p>
+    <div class="col-6">
+      <div class="card" style="justify-content: center; align-items: center;">
+        <div class="card-title mt-4">
+          <h1>Instagram</h1>
+        </div>
+        <div class="card-body mb-3 mr-auto ml-4">
+          <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+              <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}
+                  <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+              </p>
             {% endfor %}
-          </p>
-        {% endfor %}
-        <button type="submit">Sign up</button>
-      </form>
+            <button type="submit" class="btn btn-primary btn-sm">Sign up</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
