@@ -1,0 +1,35 @@
+{% extends 'insta/base.html' %} 
+{% block content %}
+<br>
+<br>
+<br>
+
+<div class="container" style="width: 50%; margin-left: auto; margin-right: auto;">
+    <h3>Your search results:</h3>
+    <div class="row">
+     {% if display %}
+      {% for i in display %}
+      <div class="row justify-content-center">
+
+
+        <div class="col">
+          <small><a href="/" class="btn btn-outline-secondary">back</a></small>
+            <div class="card my-2">
+                <h4 align=center> {{i.name}} </h4>
+                <img class="image-thumbail" src="{{i.image.url}}" alt="image">
+                <div class="card-body">
+                    <p>{{i.caption}}</p>
+                    <small>Posted: {{i.posted_on|timesince}} </small>
+                    <p></p>
+                </div>
+            </div>
+          </div>
+      </div>
+      {% endfor %}
+
+    {% else %}
+    <p> {{message}} </p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

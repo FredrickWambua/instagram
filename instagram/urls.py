@@ -10,5 +10,7 @@ urlpatterns=[
     url('^logout/$', LogoutView.as_view(), name='logout'),
     url('^signup/$', views.signup, name='signup'),
     url('^insta/index/$', views.profile_info, name='profile'),
-    url('^insta/post/$', PostCreateView.as_view(), name ='post_add')
+    url('^insta/post/$', PostCreateView.as_view(), name ='post_add'),
+    url('^search', views.search, name= 'search'),
+
 ]

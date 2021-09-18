@@ -8,6 +8,9 @@ from .models import *
 from django.conf import settings
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 
@@ -39,6 +42,7 @@ def home(request):
     }
     return render(request, 'insta/index.html', context)
 
+
 def signup(request):
         form = signUpForm(request.POST)
         if form.is_valid():
@@ -61,3 +65,14 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+@csrf_exempt
+def search(request):
+    if request.method=='GET':
+        result = request.GET.get('q')
+        if result:
+            display = Post.objects.filter(Q(name__icontains = result)|Q(caption__icontains = result))
+            return render(request, 'insta/search.html',  {'display': display})
+            
+        else:
+            message = "No information found from your search. Try to refine your search term"
+            return render(request, 'insta/search.html',{"message":message})
