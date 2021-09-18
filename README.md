@@ -36,8 +36,11 @@ $ make server
 $ make makemigrations (this creates database migrations)
 $ make migrate (this performs migrations)
 ```
+## Known bugs
+This app uses a custom user for authentication and this has made it hard for a user to login in after signing up. They need to be a super user to use the app. 
+The comment and like functionalities are not working as expected.
 ## Deployment
-
+View the working deployed application [here](https://fredinstaclone.herokuapp.com/)
 Follow [heroku documentation](https://devcenter.heroku.com/articles/git) to know more about deployin app to heroku.
 
 ## License

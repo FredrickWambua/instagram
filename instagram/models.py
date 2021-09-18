@@ -29,7 +29,7 @@ class UserManager(BaseUserManager):
         Creates and saves a staff user with a given email and password.
         '''
         user = self.create_user(email, password=password,)
-        user.staff = True
+        user.staff = False
         user.save(using=self._db)
         return user
 
@@ -38,8 +38,8 @@ class UserManager(BaseUserManager):
         Creates and saves a superuser with the given email and password.
         '''
         user = self.create_user(email, password=password,)
-        user.staff = True
-        user.admin = True
+        user.staff = False
+        user.admin = False
         user.save(using=self._db)
         return user
 
