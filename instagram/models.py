@@ -97,9 +97,12 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    def save_profile(self):
+        self.user
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    def delete_profile(self):
+        self.delete()
+   
 
 
 class Post(models.Model):
@@ -110,10 +113,10 @@ class Post(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
-    def save_image(self):
+    def save_post(self):
         self.save()
 
-    def delete_image(self):
+    def delete_post(self):
         self.delete()
 
     def __str__(self):
@@ -132,14 +135,23 @@ class Comment(models.Model):
     active = models.BooleanField(default=False)
 
 
+    def __str__(self):
+        return f'{self.user.username}'
+
     class Meta:
         ordering = ['commented_on']
 
-    def __str__(self):
-        return self.body
+
 
     def save_comment(self):
         self.save()
 
     def delete_comment(self):
         self.delete()
+
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+
+    def __str__(self):
+        return f'{self.follower} Follow'
