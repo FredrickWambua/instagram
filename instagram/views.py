@@ -1,4 +1,5 @@
-from instagram.forms import signUpForm, UploadPostForm
+from django.http.response import HttpResponseRedirect
+from instagram.forms import signUpForm, UploadPostForm, CommentForm, UpdateUserForm, UpdateProfileForm
 from django.shortcuts import get_object_or_404, render,redirect, resolve_url
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -16,16 +17,26 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-@login_required
-def profile_info(request, username):
-    user = get_object_or_404(User, username=username)
-    profile = Profile.objects.get(user=user)
-    url_name = resolve_url(request.path).url_name
-    if url_name == 'profile':
-        posts = Post.objects.filter(user=user).order_by('-posted_on')
+@login_required(login_url='login')
+def profile(request, username):
+    posts = request.user.profile.posts.all()
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        prof_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and prof_form.is_valid():
+            user_form.save()
+            prof_form.save()
+            return HttpResponseRedirect(request.path_info)
     else:
-        posts = Profile.objects.all()
-    return render(request, 'insta/index.html',{'profile': profile, 'posts': posts})
+        user_form = UpdateUserForm(instance=request.user)
+        prof_form = UpdateProfileForm(instance=request.user.profile)
+    context = {
+        'user_form': user_form,
+        'prof_form': prof_form,
+        'posts': posts,
+
+    }
+    return render(request, 'insta/profile.html', context)
 
 @login_required
 def home(request):
