@@ -35,7 +35,7 @@
                   {% if user.is_authenticated %}
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img style="width: 10%; height: 10%; border-radius: 50%;" src="{{user.profile.profile_photo.url}}" alt="Profile">
+                      <img style="width: 30px; height: 30px; border-radius: 50%;" src="{{user.profile.profile_photo.url}}" alt="Profile">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="{% url 'profile' %} ">Profile</a>
