@@ -47,12 +47,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
     username = models.CharField(max_length=255)
     staff = models.BooleanField(default=False)
-    admin = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
 
     def __str__(self):
@@ -86,7 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     name = models.CharField(max_length=80, null=True)
     email= models.EmailField(default=False)
     profile_photo = CloudinaryField('image')
@@ -102,6 +100,9 @@ class Profile(models.Model):
 
     def delete_profile(self):
         self.delete()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
    
 
 

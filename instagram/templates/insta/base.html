@@ -21,6 +21,16 @@
 </head>
 <body>
     {% include 'insta/navbar.html' %}
+    
+    <div class="container">
+        {% if messages %}
+        {% for messages in messages %}
+            <div class="alert alert-{{message.tags}}"> {{message}} </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
+
     {% block content %}
 
     {% endblock %}

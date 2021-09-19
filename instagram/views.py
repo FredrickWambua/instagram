@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from instagram.forms import signUpForm, UploadPostForm, CommentForm, UpdateUserForm, UpdateProfileForm
+from instagram.forms import SignUpForm, UploadPostForm, CommentForm, UpdateUserForm, UpdateProfileForm
 from django.shortcuts import get_object_or_404, render,redirect, resolve_url
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -15,27 +15,28 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
+
 # Create your views here.
 
 @login_required(login_url='login')
-def profile(request, username):
-    posts = request.user.profile.posts.all()
+def profile(request):
+    profiles = Profile.objects.filter(user=request.user)
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         prof_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and prof_form.is_valid():
             user_form.save()
             prof_form.save()
-            return HttpResponseRedirect(request.path_info)
+            return HttpResponseRedirect(request.url_info)
     else:
         user_form = UpdateUserForm(instance=request.user)
         prof_form = UpdateProfileForm(instance=request.user.profile)
     context = {
-        'user_form': user_form,
-        'prof_form': prof_form,
-        'posts': posts,
-
-    }
+    'user_form': user_form,
+    'prof_form': prof_form,
+    'profiles': profiles,
+            }
+            
     return render(request, 'insta/profile.html', context)
 
 @login_required
@@ -53,20 +54,17 @@ def home(request):
     }
     return render(request, 'insta/index.html', context)
 
-
 def signup(request):
-        form = signUpForm(request.POST)
+    if request.method == 'POST':     
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
-            user.save()
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Hi {username} Your account was created successfully. ')
             return redirect('home')
-        else:
-            form = signUpForm()
-        return render(request, 'registration/signup.html', {'form': form})
+    else:
+        form = SignUpForm
+    return render(request, 'registration/signup.html', {'form': form} )
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     form_class= UploadPostForm

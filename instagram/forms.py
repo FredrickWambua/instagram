@@ -5,13 +5,14 @@ from django.db import models
 from django.forms import fields, widgets
 from .models import User, Profile, UserManager, Post, Comment
 
-class signUpForm(UserCreationForm):
+
+class SignUpForm(UserCreationForm):
     username = forms.CharField(max_length=30, required=False)
     email = forms.EmailField(max_length=255, help_text='Required. Inform a valid email address.')
 
     class Meta:
         model = User
-        fields = ('username','email',)
+        fields = ('username','email', 'password1', 'password2')
 
 class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(max_length=255, help_text='Required. Inform a valid email address')
