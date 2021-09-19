@@ -22,9 +22,8 @@
                 </form>
               </div>
               <div class="col-sm-6 col-md-2"></div>
-                  <a href="#home"><i style="margin-right: 20px;font-size: 20px;" class="fas fa-home"></i></a>
-                  <a href=""><i style="margin-right: 20px;font-size: 20px;" class="fas fa-compass"></i></a>
-                  <a href=""><i style="margin-right: 20px;font-size: 20px;" class="far fa-heart"></i></a>
+                  <a href=" {% url 'home' %} "><i style="margin-right: 20px;font-size: 20px;" class="fas fa-home"></i></a>
+                  <a href=" {% url 'profile' user.username %} "><i style="margin-right: 20px;font-size: 20px;" class="far fa-heart"></i></a>
                   <a href="{% url 'post_add' %}"><i style="margin-right: 20px;font-size: 20px;" class="far fa-plus-square"></i></a>
        
                   {% if user.is_authenticated %}

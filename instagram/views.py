@@ -76,6 +76,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
+
 @csrf_exempt
 def search(request):
     if request.method=='GET':
