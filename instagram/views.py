@@ -53,10 +53,12 @@ def home(request):
         'comments': comments,
     }
     return render(request, 'insta/index.html', context)
-
+    
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':     
         form = SignUpForm(request.POST)
+
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -64,7 +66,8 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm
-    return render(request, 'registration/signup.html', {'form': form} )
+
+    return render(request, 'registration/signup.html', {'form':form,'registered': False } )
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     form_class= UploadPostForm

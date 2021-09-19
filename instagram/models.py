@@ -56,6 +56,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    def save_user(self):
+        self.email
+
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
@@ -137,7 +140,7 @@ class Comment(models.Model):
 
 
     def __str__(self):
-        return f'{self.user.username}'
+        return f'{self.author} Comment'
 
     class Meta:
         ordering = ['commented_on']
