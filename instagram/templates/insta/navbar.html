@@ -38,7 +38,11 @@
                       <img style="width: 30px; height: 30px; border-radius: 50%;" src="{{user.profile.profile_photo.url}}" alt="Profile">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      {% if profile %}
                       <a class="dropdown-item" href="{% url 'profile' %} ">Profile</a>
+                        {% else %}
+                      <a class="dropdown-item" href="{% url 'createprofile' %} "> Edit Profile</a>
+                      {% endif %}
                       <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                   {% else %}
                       <a class="dropdown-item" href="{% url 'signup' %} ">Create Account</a>

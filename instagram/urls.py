@@ -12,5 +12,6 @@ urlpatterns=[
     url('^insta/profile/$', views.profile, name='profile'),
     url('^insta/post/$', PostCreateView.as_view(), name ='post_add'),
     url('^search', views.search, name= 'search'),
+    url('^createprofile/$', views.createprofile, name = 'createprofile'),
 
 ]

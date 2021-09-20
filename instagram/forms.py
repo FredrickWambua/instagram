@@ -26,11 +26,19 @@ class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email')
+        exclude = ['user']
 
 class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('name', 'profile_photo', 'bio')
+        exclude = ['user']
+
+class ProfileUploadForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = '__all__'
+		exclude = ['user']
 
 class UploadPostForm(forms.ModelForm):
     class Meta:

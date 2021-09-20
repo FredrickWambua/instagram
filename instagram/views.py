@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from instagram.forms import SignUpForm, UploadPostForm, CommentForm, UpdateUserForm, UpdateProfileForm
+from instagram.forms import SignUpForm, UploadPostForm, CommentForm, UpdateUserForm, UpdateProfileForm, ProfileUploadForm
 from django.shortcuts import get_object_or_404, render,redirect, resolve_url
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +11,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
+
+
 
 
 
@@ -90,3 +92,17 @@ def search(request):
         else:
             message = "No information found from your search. Try to refine your search term"
             return render(request, 'insta/search.html',{"message":message})
+
+@login_required
+def createprofile(request):
+    profile = request.user
+    form = ProfileUploadForm(instance=profile)
+
+    if request.method == 'POST':
+            form = ProfileUploadForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                form.save()
+    context = {
+        'form': form,
+    }
+    return render(request, 'insta/createprofile.html', context)
